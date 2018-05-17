@@ -60,11 +60,11 @@ def cost(R) :
     res=0;
     for p in range(nP) :
         res+=rotation_cost(R[p],p)
-    for v in V :
+    for v in V:
         n=0;
         for r in R :
             for i in r :
-                if v==i :
+                if v[0]==i :
                     n+=1;
         #res+=B*abs(n-1);
     return (res)
@@ -75,7 +75,8 @@ def solution(M, volsInitiaux):
     avions = []
     for i in range(nP):
         l = []
-        if i<len(volsInitiaux):
+       # if i<len(volsInitiaux):
+       if False:
             a = volsInitiaux[i]-1
         else:
             a = random.randint(0,nV)
@@ -104,7 +105,7 @@ def permute(liste):
         return liste
 
 min=cost(R)
-for i in range(10):
+for i in range(50):
     print(i)
     R = permute(R)
     print(cost(R))
