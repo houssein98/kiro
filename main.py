@@ -21,3 +21,12 @@ with open("instance_exemple.in") as f:
 print(nV,nA,nP,B,K,G)
 print(V)
 print(A)
+
+MI = [[0 for i in range(nV)] for i in range(nV)]
+for a in A:
+    if a[3]==0:
+        MI[a[1]-1][a[2]-1]=1;
+    else: 
+        MI[a[1]-1][a[2]-1]=-1;
+
+print(MI)
