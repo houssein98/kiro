@@ -1,6 +1,6 @@
 import numpy as np
 
-with open("instance_S.in") as f:
+with open("instance_exemple.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -96,14 +96,13 @@ def solution(M, volsInitiaux):
                 break
         avions.append(l)
     return avions
-s = solution(MI,vol_depart)
-print(s)
-print(cost(s))
+R = solution(MI,vol_depart)
+print(R)
+print(cost(R))
 
--
--R = []
--
-with open("solution.txt", 'w') as f:
+
+
+with open("solution_exemple.txt", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
         f.write('p {} a '.format(p))
