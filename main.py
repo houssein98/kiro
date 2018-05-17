@@ -40,6 +40,13 @@ for j in range(nV):
         vol_depart.append(j+1)
 print(vol_depart)
 
+def cout1(R):
+    C=0
+    for i in range(len(R)):
+        for v in R[i]:
+            C+= v[i+2];
+    return C
+
 def solution(M, volsInitiaux): # M matrice d'incidence
     avions = []
     for i in range(nP):
