@@ -46,10 +46,11 @@ def solution(M, volsInitiaux): # M matrice d'incidence
         l = []
         a = volsInitiaux[i] # sinon on fait un random sur les n
         while(True):
+            if np.array_equal(M[a,:],np.zeros(n)):
+                break
             for j in range(nV):
                 if(M[a,j] == 1 or M[a,j]==-1):
                     l.append(j)
                     a = j
-            
         avions += l
     return avions
