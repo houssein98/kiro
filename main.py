@@ -1,3 +1,5 @@
+import numpy as np
+
 with open("instance_exemple.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
@@ -22,11 +24,19 @@ print(nV,nA,nP,B,K,G)
 print(V)
 print(A)
 
-MI = [[0 for i in range(nV)] for i in range(nV)]
+MI= np.zeros((nV,nV))
 for a in A:
     if a[3]==0:
-        MI[a[1]-1][a[2]-1]=1;
+        MI[a[1]-1,a[2]-1]=1;
     else: 
-        MI[a[1]-1][a[2]-1]=-1;
+        MI[a[1]-1,a[2]-1]=-1;
 
 print(MI)
+
+vol_depart = [];
+for j in range(nV):
+    print(MI[:,j])
+    if np.array_equal(MI[:,j],np.zeros(nV)):
+        vol_depart.append(j+1)
+print(vol_depart)
+    
