@@ -67,7 +67,18 @@ def cost(R) :
         #res+=B*abs(n-1);
     return (res)
 
-
+# permutation de seq
+def permutliste(seq, er=False):
+    p = [seq]
+    n = len(seq)
+    for k in xrange(0,n-1):
+        for i in xrange(0, len(p)):
+            z = p[i][:]
+            for c in xrange(0,n-k-1):
+                z.append(z.pop(k))
+                if er==False or (z not in p):
+                    p.append(z[:])
+    return p
     
 def solution(M, volsInitiaux): 
     avions = []
