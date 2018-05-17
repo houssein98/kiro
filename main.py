@@ -1,7 +1,7 @@
 import numpy as np
-#t
+import random
 
-with open("instance_S.in") as f:
+with open("instance_XXL.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -40,16 +40,7 @@ for j in range(nV):
         vol_depart.append(j+1)
 print(vol_depart)
 
-#S =[]
-#for ia in range(nP): #indice de l'avion
-#    r= [] #rotation de l'avion
-#    if(ia<len(vol_depart) and effectue[vol_depart[i]]==0):
-#        r.append(vol_depart[i])
-#        effectue[vol_depart[i]-1]=1
-#    else
-#    
     
-LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
 def cout1(R):
     C=0
     for p in range(len(R)):
@@ -59,7 +50,9 @@ def cout1(R):
 
 def rotation_cost(r,p) : #ne pas oublier la maintenance
     res=0;
-    for v in r :
+    for v in r:
+        print(v-1,p+1)
+        print(V[v-1])
         res+=V[v-1][p+1];
     return(res)
     
@@ -76,15 +69,19 @@ def cost(R) :
         #res+=B*abs(n-1);
     return (res)
 
-for R in LR:
-    print(R)
-    print(cost(R))
+#LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
+#for R in LR:
+#    print(R)
+#    print(cost(R))
     
 def solution(M, volsInitiaux): 
     avions = []
     for i in range(nP):
         l = []
-        a = volsInitiaux[i]-1
+        if i<len(volsInitiaux):
+            a = volsInitiaux[i]-1
+        else:
+            a = random.randint(0,nV)
         l.append(a+1)
         while(True):
             for j in range(nV):
@@ -98,12 +95,11 @@ def solution(M, volsInitiaux):
         avions.append(l)
     return avions
 R = solution(MI,vol_depart)
+
 print(R)
-print(cost(R))
+#print(cost(R))
 
-
-
-with open("solution_S.txt", 'w') as f:
+with open("solutionXXL.in", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
         f.write('p {} a '.format(p))
