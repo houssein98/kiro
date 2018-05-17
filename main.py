@@ -76,7 +76,7 @@ def solution(M, volsInitiaux):
     for i in range(nP):
         l = []
        # if i<len(volsInitiaux):
-       if False:
+        if False:
             a = volsInitiaux[i]-1
         else:
             a = random.randint(0,nV)
@@ -106,10 +106,9 @@ def permute(liste):
 
 min=cost(R)
 for i in range(50):
-    print(i)
     R = permute(R)
-    print(cost(R))
     if cost(R)<min:
+        min=cost(R)
         with open("solutionXXL.in", 'w') as f:
             for p, r in enumerate(R):
                 p = p+1
@@ -118,4 +117,5 @@ for i in range(50):
                     f.write('{} '.format(i))
                 f.write('\n') 
             
-
+        
+        print(cost(R))
