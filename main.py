@@ -57,12 +57,31 @@ def cout1(R):
             C+= V[v-1][p+1];
     return C
 
+def cout2(r) :
+    V=[]
+    for v in r :
+        for k in range(1,len(r)) :
+            
+            for i in range(0,k) :
+                test=0
+                somme=0
+                for j in range(i,k) :
+                    for arc in A :
+                        if arc[3]==0 and arc[1]==r[j] :
+                            test+=1
+                        somme+=arc[4]
+                if v==r[k] and test==0 and somme>=K :
+                    V+=[v]
+    a = len(V);
+    return(a*G)
+
 def rotation_cost(r,p) : #ne pas oublier la maintenance
     res=0;
     for v in r:
         res+=V[v-1][p+1];
+    res+=cout2(r);
     return(res)
-    
+
 def cost(R) :
     res=0;
     for p in range(nP) :
@@ -73,7 +92,7 @@ def cost(R) :
             for i in r :
                 if v[0]==i :
                     n+=1;
-        res+=B*abs(n-1);
+        #res+=B*abs(n-1);
     return (res)
 
 
