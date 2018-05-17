@@ -40,12 +40,33 @@ for j in range(nV):
         vol_depart.append(j+1)
 print(vol_depart)
 
-def cout1(R):
+def rotation_cost(r,p) : #ne pas oublier la maintenance
+    res=0;
+    for v in r :
+        res+=V[v][p];
+    return(res)
+
+R=np.zeros((nP,nV))
+
+def cost(R) :
+    res=0;
+    for i in range(nP) :
+        res+=rotation_cost(R[p],p)
+    for v in V :
+        n=0;
+        for r in R :
+            for i in r :
+                if v==i :
+                    n+=1;
+        res+=B*abs(n-1);
+    return (res)
+
+"""def cout1(R):
     C=0
     for i in range(len(R)):
         for v in R[i]:
             C+= v[i+2];
-    return C
+    return C"""
 
 def solution(M, volsInitiaux): # M matrice d'incidence
     avions = []
