@@ -84,3 +84,11 @@ def solution(M, volsInitiaux):
                 break
         avions.append(l)
     return avions
+
+avions = []
+
+with open("solution.txt", 'w') as f: # écrit la solution dans avions
+    for p, avion in enumerate(avions):
+        a = avion
+        p = p+1
+        f.write('p {} a {}\n'.format(p, a)) # ATTENTION AU \n
