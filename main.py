@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import itertools
+
 
 with open("instance_M.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
@@ -67,18 +69,7 @@ def cost(R) :
         #res+=B*abs(n-1);
     return (res)
 
-# permutation de seq
-def permutliste(seq, er=False):
-    p = [seq]
-    n = len(seq)
-    for k in xrange(0,n-1):
-        for i in xrange(0, len(p)):
-            z = p[i][:]
-            for c in xrange(0,n-k-1):
-                z.append(z.pop(k))
-                if er==False or (z not in p):
-                    p.append(z[:])
-    return p
+
     
 def solution(M, volsInitiaux): 
     avions = []
@@ -102,11 +93,31 @@ def solution(M, volsInitiaux):
     return avions
 R = solution(MI,vol_depart)
 
-print(R)
-print(cost(R),cout1(R))
+# permutation de seq
+def permutliste(seq, er=False):
+    p = [seq]
+    n = len(seq)
+    for k in range(0,n-1):
+        for i in range(0, len(p)):
+            z = p[i][:]
+            for c in range(0,n-k-1):
+                z.append(z.pop(k))
+                if er==False or (z not in p):
+                    p.append(z[:])
 
+
+
+LR = list(itertools.permutations(R))
+min=cost(R)
+k=0
+for i in range(len(LR)):
+    if cost(LR[i])<min:
+        k=i
+        min=cost(LR[i])
+
+print(cost(LR[k]))
 with open("solutionM.in", 'w') as f:
-    for p, r in enumerate(R):
+    for p, r in enumerate(LR[k]):
         p = p+1
         f.write('p {} a '.format(p))
         for i in r:
