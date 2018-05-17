@@ -76,8 +76,9 @@ def solution(M, volsInitiaux):
         l.append(a+1)
         while(True):
             for j in range(nV):
-                if(M[a,j] == 1 or M[a,j]==-1):
+                if(M[a,j] == 1 or M[a,j] == -1):
                     l.append(j+1)
+                    M[:,j] = 0
                     a = j
                     break
             if np.array_equal(M[a,:],np.zeros(nV)):
