@@ -103,8 +103,9 @@ print(cost(s))
 -
 -R = []
 -
--with open("solution.txt", 'w') as f: # écrit la solution dans avions
--    for p, R in enumerate(avions):
--        a = R
--        p = p+1
--        f.write('p {} a {}\n'.format(p, a)) # ATTENTION AU \n
+with open("solution.txt", 'w') as f:
+    for p, r in enumerate(R):
+        p = p+1
+        for i in r:
+            f.write('p {} i {}'.format(p, i))
+        f.write('\n') 
