@@ -68,17 +68,19 @@ def cost(R) :
             C+= v[i+2];
     return C"""
 
-def solution(M, volsInitiaux): # M matrice d'incidence
+def solution(M, volsInitiaux): 
     avions = []
     for i in range(nP):
         l = []
-        a = volsInitiaux[i] # sinon on fait un random sur les n
+        a = volsInitiaux[i]-1
+        l.append(a+1)
         while(True):
-            if np.array_equal(M[a,:],np.zeros(n)):
-                break
             for j in range(nV):
                 if(M[a,j] == 1 or M[a,j]==-1):
-                    l.append(j)
+                    l.append(j+1)
                     a = j
-        avions += l
+                    break
+            if np.array_equal(M[a,:],np.zeros(nV)):
+                break
+        avions.append(l)
     return avions
