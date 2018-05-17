@@ -106,6 +106,7 @@ print(cost(s))
 with open("solution.txt", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
+        f.write('p {} a '.format(p))
         for i in r:
-            f.write('p {} i {}'.format(p, i))
+            f.write('{} '.format(i))
         f.write('\n') 
