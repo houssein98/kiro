@@ -2,8 +2,16 @@ import numpy as np
 import random
 import itertools
 
-
-with open("instance_XXL.in") as f:
+def permute(liste):
+    for i in range(len(liste)):
+        A = liste[i]
+        j = random.randint(0,len(liste)-1)
+        B = liste[j]
+        liste[i]= B
+        liste[j]= A
+        return liste
+    
+with open("instance_L.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -40,7 +48,6 @@ vol_depart = [];
 for j in range(nV):
     if np.array_equal(MI[:,j],np.zeros(nV)):
         vol_depart.append(j+1)
-print(vol_depart)
 
     
 def cout1(R):
@@ -66,50 +73,60 @@ def cost(R) :
             for i in r :
                 if v[0]==i :
                     n+=1;
-        #res+=B*abs(n-1);
+        res+=B*abs(n-1);
     return (res)
 
 
     
 def solution(M, volsInitiaux): 
     avions = []
+    M2=np.zeros((nV,nV))
+    for i in range(nV):
+        for j in range(nV):
+            M2[i,j]=M[i,j]
+            
     for i in range(nP):
         l = []
-       # if i<len(volsInitiaux):
-        if False:
-            a = volsInitiaux[i]-1
-        else:
-            a = random.randint(0,nV)
+        a = random.randint(0,nV-1)
         l.append(a+1)
         while(True):
-            for j in range(nV):
-                if(M[a,j] == 1 or M[a,j] == -1):
+            J = [i  for i in range(nV)]
+            permute(J)
+            for j in J:
+                if(M2[a,j] == -1 or M2[a,j] == 1):
                     l.append(j+1)
-                    M[:,j] = 0
+                    M2[:,j] = 0
                     a = j
                     break
-            if np.array_equal(M[a,:],np.zeros(nV)):
+            if np.array_equal(M2[a,:],np.zeros(nV)):
                 break
         avions.append(l)
+        
+
     return avions
+
 R = solution(MI,vol_depart)
 
 # permutation de seq
-def permute(liste):
-    for i in range(len(liste)):
-        A = liste[i]
-        j = random.randint(0,len(liste)-1)
-        B = liste[j]
-        liste[i]= B
-        liste[j]= A
-        return liste
+
 
 min=cost(R)
-for i in range(50):
+print(min)
+
+for i in range(100):
+    R2 = solution(MI,vol_depart)
+    c = cost(R2)
+    print(c,min)
+    if c<min:
+        R=R2
+        min = c
+        
+for i in range(10):  
     R = permute(R)
     if cost(R)<min:
+        print(i)
         min=cost(R)
-        with open("solutionXXL.in", 'w') as f:
+        with open("solutionL1.in", 'w') as f:
             for p, r in enumerate(R):
                 p = p+1
                 f.write('p {} a '.format(p))
