@@ -1,7 +1,7 @@
 import numpy as np
-#t
+import random
 
-with open("instance_S.in") as f:
+with open("instance_M.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -15,15 +15,15 @@ with open("instance_S.in") as f:
     datasA = datas[nV:1+nV+nA]
     A, V = [], []
     for data in datasV:
-        vol = (int(data[1]), int(data[3]), int(data[4]), int(data[5]))
+        vol = [int(data[1])]+[int(data[i]) for i in range(3,3+nP)]
         V.append(vol)
     for data in datasA:
         arc = (int(data[1]), int(data[3]), int(data[5]), int(data[7]), int(data[9]))
         A.append(arc)
         
-print(nV,nA,nP,B,K,G)
-print(V)
-print(A)
+#print(nV,nA,nP,B,K,G)
+#print(V)
+#print(A)
 
 MI= np.zeros((nV,nV))
 for a in A:
@@ -32,7 +32,7 @@ for a in A:
     else: 
         MI[a[1]-1,a[2]-1]=-1;
 
-print(MI)
+#print(MI)
 
 vol_depart = [];
 for j in range(nV):
@@ -40,16 +40,7 @@ for j in range(nV):
         vol_depart.append(j+1)
 print(vol_depart)
 
-#S =[]
-#for ia in range(nP): #indice de l'avion
-#    r= [] #rotation de l'avion
-#    if(ia<len(vol_depart) and effectue[vol_depart[i]]==0):
-#        r.append(vol_depart[i])
-#        effectue[vol_depart[i]-1]=1
-#    else
-#    
     
-LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
 def cout1(R):
     C=0
     for p in range(len(R)):
@@ -59,7 +50,7 @@ def cout1(R):
 
 def rotation_cost(r,p) : #ne pas oublier la maintenance
     res=0;
-    for v in r :
+    for v in r:
         res+=V[v-1][p+1];
     return(res)
     
@@ -76,15 +67,16 @@ def cost(R) :
         #res+=B*abs(n-1);
     return (res)
 
-for R in LR:
-    print(R)
-    print(cost(R))
+
     
 def solution(M, volsInitiaux): 
     avions = []
     for i in range(nP):
         l = []
-        a = volsInitiaux[i]-1
+        if i<len(volsInitiaux):
+            a = volsInitiaux[i]-1
+        else:
+            a = random.randint(0,nV)
         l.append(a+1)
         while(True):
             for j in range(nV):
@@ -98,23 +90,11 @@ def solution(M, volsInitiaux):
         avions.append(l)
     return avions
 R = solution(MI,vol_depart)
+
 print(R)
-print(cost(R))
+print(cost(R),cout1(R))
 
-# permutation de seq
-def permutliste(seq, er=False):
-    p = [seq]
-    n = len(seq)
-    for k in xrange(0,n-1):
-        for i in xrange(0, len(p)):
-            z = p[i][:]
-            for c in xrange(0,n-k-1):
-                z.append(z.pop(k))
-                if er==False or (z not in p):
-                    p.append(z[:])
-    return p
-
-with open("solution_S.txt", 'w') as f:
+with open("solutionM.in", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
         f.write('p {} a '.format(p))
