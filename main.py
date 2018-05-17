@@ -1,6 +1,6 @@
 import numpy as np
 
-with open("instance_exemple.in") as f:
+with open("instance_S.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -35,22 +35,36 @@ print(MI)
 
 vol_depart = [];
 for j in range(nV):
-    print(MI[:,j])
     if np.array_equal(MI[:,j],np.zeros(nV)):
         vol_depart.append(j+1)
 print(vol_depart)
 
+#S =[]
+#for ia in range(nP): #indice de l'avion
+#    r= [] #rotation de l'avion
+#    if(ia<len(vol_depart) and effectue[vol_depart[i]]==0):
+#        r.append(vol_depart[i])
+#        effectue[vol_depart[i]-1]=1
+#    else
+#    
+    
+LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
+def cout1(R):
+    C=0
+    for p in range(len(R)):
+        for v in R[p]:
+            C+= V[v-1][p+1];
+    return C
+
 def rotation_cost(r,p) : #ne pas oublier la maintenance
     res=0;
     for v in r :
-        res+=V[v][p];
+        res+=V[v-1][p+1];
     return(res)
-
-#R=[[0 for i in range(nP)] for j in range(nV)]
-
+    
 def cost(R) :
     res=0;
-    for i in range(nP) :
+    for p in range(nP) :
         res+=rotation_cost(R[p],p)
     for v in V :
         n=0;
@@ -58,16 +72,13 @@ def cost(R) :
             for i in r :
                 if v==i :
                     n+=1;
-        res+=B*abs(n-1);
+        #res+=B*abs(n-1);
     return (res)
 
-"""def cout1(R):
-    C=0
-    for i in range(len(R)):
-        for v in R[i]:
-            C+= v[i+2];
-    return C"""
-
+for R in LR:
+    print(R)
+    print(cost(R))
+    
 def solution(M, volsInitiaux): 
     avions = []
     for i in range(nP):
@@ -85,11 +96,6 @@ def solution(M, volsInitiaux):
                 break
         avions.append(l)
     return avions
-
-R = []
-
-with open("solution.txt", 'w') as f: # écrit la solution dans avions
-    for p, R in enumerate(avions):
-        a = R
-        p = p+1
-        f.write('p {} a {}\n'.format(p, a)) # ATTENTION AU \n
+s = solution(MI,vol_depart)
+print(s)
+print(cost(s))
