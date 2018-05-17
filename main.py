@@ -1,6 +1,6 @@
 import numpy as np
 
-with open("instance_S.in") as f:
+with open("instance_exemple.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -39,7 +39,16 @@ for j in range(nV):
         vol_depart.append(j+1)
 print(vol_depart)
 
+#S =[]
+#for ia in range(nP): #indice de l'avion
+#    r= [] #rotation de l'avion
+#    if(ia<len(vol_depart) and effectue[vol_depart[i]]==0):
+#        r.append(vol_depart[i])
+#        effectue[vol_depart[i]-1]=1
+#    else
+#    
     
+LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
 def cout1(R):
     C=0
     for p in range(len(R)):
@@ -66,10 +75,9 @@ def cost(R) :
         #res+=B*abs(n-1);
     return (res)
 
-#LR = [[[1,3],[5,6],[2,4,7]],[[1,3],[2,4,7],[5,6]],[[5,6],[1,3],[2,4,7]],[[2,4,7],[1,3],[5,6]],[[5,6],[2,4,7],[1,3]],[[2,4,7],[5,6],[1,3]]]
-#for R in LR:
-#    print(R)
-#    print(cost(R))
+for R in LR:
+    print(R)
+    print(cost(R))
     
 def solution(M, volsInitiaux): 
     avions = []
@@ -89,11 +97,12 @@ def solution(M, volsInitiaux):
         avions.append(l)
     return avions
 R = solution(MI,vol_depart)
-
 print(R)
 print(cost(R))
 
-with open("solution.in", 'w') as f:
+
+
+with open("solution_exemple.txt", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
         f.write('p {} a '.format(p))
