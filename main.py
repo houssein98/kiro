@@ -99,3 +99,12 @@ def solution(M, volsInitiaux):
 s = solution(MI,vol_depart)
 print(s)
 print(cost(s))
+
+-
+-R = []
+-
+-with open("solution.txt", 'w') as f: # écrit la solution dans avions
+-    for p, R in enumerate(avions):
+-        a = R
+-        p = p+1
+-        f.write('p {} a {}\n'.format(p, a)) # ATTENTION AU \n
