@@ -3,7 +3,7 @@ import random
 import itertools
 
 
-with open("instance_M.in") as f:
+with open("instance_XXL.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -94,32 +94,27 @@ def solution(M, volsInitiaux):
 R = solution(MI,vol_depart)
 
 # permutation de seq
-def permutliste(seq, er=False):
-    p = [seq]
-    n = len(seq)
-    for k in range(0,n-1):
-        for i in range(0, len(p)):
-            z = p[i][:]
-            for c in range(0,n-k-1):
-                z.append(z.pop(k))
-                if er==False or (z not in p):
-                    p.append(z[:])
+def permute(liste):
+    for i in range(len(liste)):
+        A = liste[i]
+        j = random.randint(0,len(liste)-1)
+        B = liste[j]
+        liste[i]= B
+        liste[j]= A
+        return liste
 
-
-
-LR = list(itertools.permutations(R))
 min=cost(R)
-k=0
-for i in range(len(LR)):
-    if cost(LR[i])<min:
-        k=i
-        min=cost(LR[i])
+for i in range(10):
+    print(i)
+    R = permute(R)
+    print(cost(R))
+    if cost(R)<min:
+        with open("solutionXXL.in", 'w') as f:
+            for p, r in enumerate(R):
+                p = p+1
+                f.write('p {} a '.format(p))
+                for i in r:
+                    f.write('{} '.format(i))
+                f.write('\n') 
+            
 
-print(cost(LR[k]))
-with open("solutionM.in", 'w') as f:
-    for p, r in enumerate(LR[k]):
-        p = p+1
-        f.write('p {} a '.format(p))
-        for i in r:
-            f.write('{} '.format(i))
-        f.write('\n') 
