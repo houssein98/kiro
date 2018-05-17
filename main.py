@@ -1,7 +1,7 @@
 import numpy as np
 #t
 
-with open("instance_exemple.in") as f:
+with open("instance_S.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
     metadatas = lines[0].split(' ')
     nV = int(metadatas[1])
@@ -103,7 +103,7 @@ print(cost(R))
 
 
 
-with open("solution_exemple.txt", 'w') as f:
+with open("solution_S.txt", 'w') as f:
     for p, r in enumerate(R):
         p = p+1
         f.write('p {} a '.format(p))
