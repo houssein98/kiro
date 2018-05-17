@@ -1,4 +1,5 @@
 import numpy as np
+#t
 
 with open("instance_exemple.in") as f:
     lines = list(map(str.rstrip, f.readlines()))
