@@ -39,4 +39,19 @@ for j in range(nV):
     if np.array_equal(MI[:,j],np.zeros(nV)):
         vol_depart.append(j+1)
 print(vol_depart)
-    
+
+def solution(M, volsInitiaux, nbA, n): # M matrice d'incidence
+    sol = []
+    for i in range(nbA):
+        l = []
+        existe = True
+        a = volsInitiaux[i] # sinon on fait un random sur les n
+        while(existe):
+            for j in range(n):
+                if(M[a,j] == 1):
+                    l.append(j)
+                    a = j
+                    break
+            break
+        avions += l
+    return avions
