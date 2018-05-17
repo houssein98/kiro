@@ -41,7 +41,7 @@ for j in range(nV):
 print(vol_depart)
 
 def solution(M, volsInitiaux, nbA, n): # M matrice d'incidence
-    sol = []
+    avions = []
     for i in range(nbA):
         l = []
         existe = True
