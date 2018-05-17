@@ -8,7 +8,7 @@ with open("instance_exemple.in") as f:
     K = int(metadatas[9])
     G = int(metadatas[11])
     datas = list(map(lambda x:x.split(' '), lines[1:1+nV+nA]))
-    datasV = datas[1:nV]
+    datasV = datas[:nV]
     datasA = datas[nV:1+nV+nA]
     A, V = [], []
     for data in datasV:
