@@ -46,7 +46,7 @@ def rotation_cost(r,p) : #ne pas oublier la maintenance
         res+=V[v][p];
     return(res)
 
-R=np.zeros((nP,nV))
+#R=[[0 for i in range(nP)] for j in range(nV)]
 
 def cost(R) :
     res=0;
@@ -85,10 +85,10 @@ def solution(M, volsInitiaux):
         avions.append(l)
     return avions
 
-avions = []
+R = []
 
 with open("solution.txt", 'w') as f: # écrit la solution dans avions
-    for p, avion in enumerate(avions):
-        a = avion
+    for p, R in enumerate(avions):
+        a = R
         p = p+1
         f.write('p {} a {}\n'.format(p, a)) # ATTENTION AU \n
